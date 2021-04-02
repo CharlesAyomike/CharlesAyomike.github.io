@@ -283,4 +283,289 @@
 
 </script>
 </body>
+</html><!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		.display{
+			border: 2px solid lightblue;
+			width: 210px;
+			min-height: 80px;
+			border-radius: 10px;
+			padding: 5px;
+			margin-bottom: 10px
+		}
+.btns{
+	width: 45px;
+	height: 45px;
+	margin: 2px
+}
+
+.btn0{
+	width: 150px;
+	height: 45px;
+	margin: 2px
+}
+
+.btne{
+	width: 45px;
+	height: 50px;
+	margin: 2px
+}
+
+#er{
+	width: 160px;
+	background-color:blue; 
+	color: white;
+
+}
+
+	</style>
+</head>
+<body>
+
+	<div>
+		<div class="display">
+			<div id="er"></div>
+			<div id="rfv" ><span id="sign"></span><span id="fv"></span></div>
+			<div id="op"></div>
+			<div id="sv"></div>
+			<div id="as" style="color: blue; font-weight: bolder; font-size: 20px"></div>
+		</div>
+		<div>
+			<div>	
+				<button class="btns" onclick="cl()">cc</button>
+				<button class="btns" onclick="operate('/')">/</button>
+				<button class="btns" onclick="operate('*')">*</button>
+				<button class="btns" onclick="erase()">c</button>
+			</div>
+			<div>
+				<button class="btns" onclick="input('1')">1</button>
+				<button class="btns" onclick="input('2')">2</button>
+				<button class="btns" onclick="input('3')">3</button>
+				<button class="btns" onclick="operate('+')">+</button>
+
+			</div>
+			<div>
+				<button class="btns" onclick="input('4')">4</button>
+				<button class="btns" onclick="input('5')">5</button>
+				<button class="btns" onclick="input('6')">6</button>
+				<button class="btns" onclick="operate('-')">-</button>
+
+			</div>
+			<div>
+				<button class="btns" onclick="input('7')">7</button>
+				<button class="btns" onclick="input('8')">8</button>
+				<button class="btns" onclick="input('9')">9</button>
+				<button class="btne" onclick="equal()">=</button>
+
+			</div>
+			<div>
+				<button class="btn0" onclick="input('0')">0</button>
+				<button class="btns" onclick="input('.')">.</button>
+			</div>
+			
+
+		</div>
+	</div>
+	<div id='tt'>
+		
+	</div>
+<script type="text/javascript">
+	var operator = '';
+	var answer = document.querySelector('#as');
+	var as = '';
+	var first_value = '';
+	var first_value_holder = document.querySelector('#fv');
+	var second_value = '';
+	var second_value_holder = document.querySelector('#sv');
+	error = '';
+	var error_msg = document.querySelector('#er');
+
+
+	function operate(operand){
+		if(first_value=='' && operand=='-'){
+  			document.querySelector('#sign').innerHTML='-'
+		}
+		if(first_value!=''){
+		operator = document.querySelector('#op').innerHTML=operand;
+		}
+		set()
+	}
+
+
+
+
+	function input(value){
+
+		if(as!=''){
+
+		}else{
+
+					if(operator==''){
+			if(first_value.length===15){
+					
+					error =  error_msg.innerHTML = 'cannot exceed 15 digits'
+				
+			}else{
+				first_value	= first_value_holder.innerHTML = first_value + value
+			}
+		}else{
+			if(second_value.length===15){
+					error = error_msg.innerHTML = 'cannot exceed 15 digits'
+				
+			}else{
+				second_value = second_value_holder.innerHTML = second_value + value
+			}
+		}
+
+
+		}
+
+		
+		
+	}
+
+	function equal(){
+
+		if(first_value==''){
+			alert('error')
+		}else if(operator==''){
+			alert('error')
+
+		}else if(second_value==''){
+			alert('error')
+
+		}else{
+			first_value = document.querySelector('#rfv').innerText
+	
+			first_value = parseFloat(first_value);
+			second_value = parseFloat(second_value);
+			var ans = '';
+			if(operator=='+'){
+			  ans = first_value + second_value;
+			}else if(operator=='-'){
+			  ans = first_value - second_value;
+			}else if(operator=='/'){
+			  ans = first_value / second_value;
+			}else{
+			  ans = first_value * second_value;
+			}
+
+
+
+			as = answer.innerHTML = ans
+		}
+
+		
+	}
+
+	function cl(){
+		first_value	= first_value_holder.innerHTML = ''
+		second_value = second_value_holder.innerHTML = ''
+		operator = document.querySelector('#op').innerHTML='';
+			as = answer.innerHTML = ''
+
+
+	}
+
+	function set(){
+		if(as!=''){
+			first_value = document.querySelector('#rfv').innerText = as
+			second_value = second_value_holder.innerHTML = ''
+			as = answer.innerHTML = ''
+
+		}
+	}
+
+	function erase(){
+	
+
+		if(as!=''){
+
+			var tst = document.querySelector('#as').textContent
+			tst = tst.trim()
+			ne = tst.slice(0, -1)
+
+
+		var asc = document.querySelector('#as').innerHTML= ne
+
+		if(asc.length==0){
+			as=''
+
+		}
+
+		}else if(second_value!=''){
+
+			var tst1 = document.querySelector('#sv').textContent
+			tst1 = tst1.trim()
+			ne1 = tst1.slice(0, -1)
+
+
+			var svc = document.querySelector('#sv').innerHTML= ne1
+
+			if(svc.length==0){
+				second_value=''
+			}
+
+		}else if(operator!=''){
+
+			var tst2 = document.querySelector('#op').textContent
+			tst2 = tst2.trim()
+			ne2 = tst2.slice(0, -1)
+
+
+			var opc = document.querySelector('#op').innerHTML= ne2
+
+			if(opc.length==0){
+				operator=''
+			}
+
+		}else if(first_value!=''){
+
+
+
+			var tst3 = document.querySelector('#fv').textContent
+			tst3 = tst3.trim()
+			ne3 = tst3.slice(0, -1)
+
+
+			var fvc = document.querySelector('#fv').innerHTML= ne3
+
+			if(fvc.length==0){
+				first_value=''
+			}
+
+
+		}else{
+
+			var tst4 = document.querySelector('#sign').textContent
+			tst4 = tst4.trim()
+			ne4 = tst4.slice(0, -1)
+
+
+			var n_sign = document.querySelector('#sign').innerHTML= ne4
+
+			if(n_sign.length==0){
+				n_sign=''
+			}
+
+		}
+
+
+
+	}
+
+	function removeerr(){
+		if(error!=''){
+					 error = error_msg.innerHTML = ''	
+		}
+	}
+
+	var sett = setInterval(removeerr, 4000)
+
+</script>
+</body>
 </html>
