@@ -44,7 +44,7 @@
 	<div>
 		<div class="display">
 			<div id="er"></div>
-			<div id="fv"></div>
+			<div id="rfv" ><span id="sign"></span><span id="fv"></span></div>
 			<div id="op"></div>
 			<div id="sv"></div>
 			<div id="as" style="color: blue; font-weight: bolder; font-size: 20px"></div>
@@ -101,7 +101,12 @@
 
 
 	function operate(operand){
+		if(first_value=='' && operand=='-'){
+  			document.querySelector('#sign').innerHTML='-'
+		}
+		if(first_value!=''){
 		operator = document.querySelector('#op').innerHTML=operand;
+		}
 		set()
 	}
 
@@ -117,14 +122,14 @@
 					if(operator==''){
 			if(first_value.length===15){
 					
-					 error_msg.innerHTML = 'cannot exceed 15 digits'
+					error =  error_msg.innerHTML = 'cannot exceed 15 digits'
 				
 			}else{
 				first_value	= first_value_holder.innerHTML = first_value + value
 			}
 		}else{
 			if(second_value.length===15){
-					 error_msg.innerHTML = 'cannot exceed 15 digits'
+					error = error_msg.innerHTML = 'cannot exceed 15 digits'
 				
 			}else{
 				second_value = second_value_holder.innerHTML = second_value + value
@@ -149,7 +154,8 @@
 			alert('error')
 
 		}else{
-
+			first_value = document.querySelector('#rfv').innerText
+	
 			first_value = parseFloat(first_value);
 			second_value = parseFloat(second_value);
 			var ans = '';
@@ -182,7 +188,7 @@
 
 	function set(){
 		if(as!=''){
-			first_value	= first_value_holder.innerHTML = as
+			first_value = document.querySelector('#rfv').innerText = as
 			second_value = second_value_holder.innerHTML = ''
 			as = answer.innerHTML = ''
 
@@ -226,13 +232,15 @@
 			ne2 = tst2.slice(0, -1)
 
 
-			var opc = document.querySelector('#op').innerHTML= ne1
+			var opc = document.querySelector('#op').innerHTML= ne2
 
 			if(opc.length==0){
 				operator=''
 			}
 
-		}else{
+		}else if(first_value!=''){
+
+
 
 			var tst3 = document.querySelector('#fv').textContent
 			tst3 = tst3.trim()
@@ -246,6 +254,19 @@
 			}
 
 
+		}else{
+
+			var tst4 = document.querySelector('#sign').textContent
+			tst4 = tst4.trim()
+			ne4 = tst4.slice(0, -1)
+
+
+			var n_sign = document.querySelector('#sign').innerHTML= ne4
+
+			if(n_sign.length==0){
+				n_sign=''
+			}
+
 		}
 
 
@@ -258,7 +279,7 @@
 		}
 	}
 
-	var sett = setInterval(removeerr, 2000)
+	var sett = setInterval(removeerr, 4000)
 
 </script>
 </body>
